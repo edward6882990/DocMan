@@ -1,0 +1,38 @@
+{
+  "name": "loko",
+  "version": "4.0.2",
+  "description": "Location sharing",
+  "dependencies": {
+    "requirejs": "^2.1.22",
+    "browserify": "~> 10.2.4",
+    "browserify-incremental": "^3.0.1",
+    "react": "^0.14.8",
+    "react-dom": "^0.14.0",
+    "react-router": "^1.0.0",
+    "reactify": "^1.1.0",
+    "react-tap-event-plugin": "^0.2.1",
+    "material-ui": "^0.13.4",
+    "material-design-icons": "^2.1.1",
+    "jquery": "^2.1.4",
+    "jquery.cookie": "^1.4.1",
+    "lodash": "^3.10.1",
+    "history": "^1.13.1",
+    "backbone.marionette": "^2.4.4",
+    "gulp": "^3.9.1",
+    "watchify": "^3.7.0",
+    "fs": "^0.0.2"
+  },
+  "author": "Edward Tam",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
