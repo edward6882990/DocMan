@@ -20,7 +20,8 @@
     "backbone.marionette": "^2.4.4",
     "gulp": "^3.9.1",
     "watchify": "^3.7.0",
-    "fs": "^0.0.2"
+    "fs": "^0.0.2",
+    "gulp-ruby-sass": "^2.0.6"
   },
   "author": "Edward Tam",
   "license": "MIT",
@@ -33,6 +34,7 @@
     ]
   },
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "gulp-ruby-sass": "^2.0.6"
   }
 }

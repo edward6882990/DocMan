@@ -1,0 +1,12 @@
+body {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; }
+  body div#landing_page div.landing-title {
+    width: 18%;
+    margin: auto;
+    margin-top: 50%;
+    font-size: 2em; }
+  body div#landing_page div.credentials {
+    width: 70%;
+    margin: auto; }
+    body div#landing_page div.credentials input {
+      width: 100%; }

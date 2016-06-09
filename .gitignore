@@ -1,1 +1,4 @@
 node_modules
+.sass-cache
+www/css
+www/js/main.js
