@@ -17,8 +17,7 @@
  * under the License.
  */
 
-var Loko = require('./loko.jsx');
-
+var Views = require('./views.jsx');
 window.app = {
   // Application Constructor
   initialize: function() {
@@ -39,7 +38,7 @@ window.app = {
     var start = function(data) {
       $.cookie('authenticity_token', data.authenticity_token);
       var $el = $('#loko_content');
-      ReactDOM.render(<Loko />, $el[0]);
+      ReactDOM.render(<Views.Login />, $el[0]);
     };
 
     Auth.getToken(start);

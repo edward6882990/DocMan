@@ -1,4 +1,4 @@
-var Loko = React.createClass({
+var Login = React.createClass({
   getInitialState: function(){
     return { errorMessage: null };
   },
@@ -40,4 +40,4 @@ var Loko = React.createClass({
   }
 });
 
-module.exports = Loko;
+module.exports = Login;
