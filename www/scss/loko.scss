@@ -5,7 +5,7 @@ body {
     div.landing-title {
       width: 18%;
       margin: auto;
-      margin-top: 50%;
+      margin-top: 40%;
       font-size: 2em;
     }
 
@@ -15,5 +15,16 @@ body {
 
       input { width: 100%; }
     }
+
+    div.errorMessage {
+      width: 50%;
+      margin: auto;
+      color: red;
+    }
+
+    .sign-in-btn { float: left; }
+    .register-btn { float: right; }
   }
 }
+
+.pull-down-10 { margin-top: 10px; }

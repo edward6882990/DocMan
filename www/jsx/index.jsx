@@ -17,8 +17,7 @@
  * under the License.
  */
 
-var Loko     = require('./loko.jsx');
-var ReactDOM = require('react-dom');
+var Loko = require('./loko.jsx');
 
 window.app = {
   // Application Constructor
@@ -37,8 +36,13 @@ window.app = {
   // The scope of 'this' is the event. In order to call the 'receivedEvent'
   // function, we must explicitly call 'app.receivedEvent(...);'
   onDeviceReady: function() {
-    var $el = $('#loko_content');
-    ReactDOM.render(<Loko />, $el[0]);
+    var start = function(data) {
+      $.cookie('authenticity_token', data.authenticity_token);
+      var $el = $('#loko_content');
+      ReactDOM.render(<Loko />, $el[0]);
+    };
+
+    Auth.getToken(start);
   }
 };
 
