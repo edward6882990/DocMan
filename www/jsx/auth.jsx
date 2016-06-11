@@ -1,6 +1,7 @@
-var HOST          = 'http://be562b70.ngrok.io';
+var HOST          = 'http://9874a99a.ngrok.io';
 var SIGN_IN_PATH  = '/users/sign_in';
 var SIGN_OUT_PATH = '/users/sign_out';
+var SIGN_UP_PATH  = '/users';
 var TOKEN_PATH    = '/authenticity_token';
 
 var Auth = {
@@ -26,6 +27,20 @@ var Auth = {
       .fail(fail);
   },
 
+  signUp: function(name, email, password, passwordConfirmation, options){
+    var data = {
+      name                  : name,
+      email                 : email,
+      password              : password,
+      password_confirmation : passwordConfirmation
+    };
+
+    var done = options && options.done;
+    var fail = options && options.fail;
+
+    this._signUpRequest(data).done(done).fail(fail);
+  },
+
   signOut: function(){
     this._signOutRequest();
     $.removeCookie('user_id');
@@ -47,10 +62,18 @@ var Auth = {
     });
   },
 
-  _signOutRequest: function() {
+  _signOutRequest: function(){
     return $.ajax({
       url    : HOST + SIGN_OUT_PATH,
       method : 'DELETE'
+    });
+  },
+
+  _signUpRequest: function(data){
+    return $.ajax({
+      url    : HOST + SIGN_UP_PATH,
+      data   : data,
+      method : 'POST'
     });
   }
 };

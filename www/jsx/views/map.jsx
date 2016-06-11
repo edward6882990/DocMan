@@ -1,9 +1,9 @@
-var Map = React.createClass({
+var MapView = React.createClass({
   render: function(){
     return (
-
+      <div>Map</div>
     );
   }
 });
 
-module.exports = Map;
+module.exports = MapView;

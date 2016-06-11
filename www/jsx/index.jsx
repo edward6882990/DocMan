@@ -17,7 +17,12 @@
  * under the License.
  */
 
-var Views = require('./views.jsx');
+ var AppRouter = require('./app_router.jsx');
+
+ var history = History.useBasename(History.createHashHistory)({
+   basename: '/'
+ });
+
 window.app = {
   // Application Constructor
   initialize: function() {
@@ -38,7 +43,7 @@ window.app = {
     var start = function(data) {
       $.cookie('authenticity_token', data.authenticity_token);
       var $el = $('#loko_content');
-      ReactDOM.render(<Views.Login />, $el[0]);
+      ReactDOM.render(<AppRouter history={history} />, $el[0]);
     };
 
     Auth.getToken(start);

@@ -1,20 +1,8 @@
 body {
   font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 
-  div#landing_page {
-    div.landing-title {
-      width: 18%;
-      margin: auto;
-      margin-top: 40%;
-      font-size: 2em;
-    }
-
-    div.credentials {
-      width: 70%;
-      margin: auto;
-
-      input { width: 100%; }
-    }
+  div#login_page {
+    div.center-header { margin-top: 40%; }
 
     div.errorMessage {
       width: 50%;
@@ -22,9 +10,42 @@ body {
       color: red;
     }
 
-    .sign-in-btn { float: left; }
-    .register-btn { float: right; }
+    div.buttons-wrapper { text-align: right; }
+  }
+
+  div#register_page {
+    div.center-header { margin-top: 20%; }
+    div.buttons-wrapper { text-align: right; }
+    div.signed-up {
+      width: 70%;
+      margin: auto;
+      text-align: center;
+      color: green;
+    }
   }
 }
 
 .pull-down-10 { margin-top: 10px; }
+.pull-down-20 { margin-top: 20px; }
+.pull-down-30 { margin-top: 30px; }
+.pull-down-40 { margin-top: 40px; }
+.pull-down-50 { margin-top: 50px; }
+
+.center-header {
+  width: 30%;
+  margin: auto;
+  font-size: 2em;
+  text-align: center;
+}
+
+.center-inputs {
+  width: 70%;
+  margin: auto;
+}
+
+.errorMessage {
+  width: 70%;
+  margin: auto;
+  color: red;
+  text-align: center;
+}
