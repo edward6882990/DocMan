@@ -42,8 +42,21 @@ window.app = {
   onDeviceReady: function() {
     var start = function(data) {
       $.cookie('authenticity_token', data.authenticity_token);
-      var $el = $('#loko_content');
-      ReactDOM.render(<AppRouter history={history} />, $el[0]);
+
+      var initApp = function(){
+        var $el = $('#loko_content');
+        ReactDOM.render(<AppRouter history={history} />, $el[0]);
+      };
+
+      var onAuthFailed = function(){
+        $.removeCookie('user_id');
+        $.removeCookie('remember_token');
+      };
+
+      Auth.authenticateByToken({
+        fail   : onAuthFailed,
+        always : initApp
+      });
     };
 
     Auth.getToken(start);

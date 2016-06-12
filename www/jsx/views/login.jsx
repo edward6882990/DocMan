@@ -33,13 +33,13 @@ var Login = React.createClass({
   },
 
   _onSignInSuccess: function() {
-    this._navigate('/map');
+    this._navigate('/home');
   },
 
   render: function(){
     return (
       <div id="login_page">
-        <div className="center-header">Loko</div>
+        <div className="center-header">DocMan</div>
         {this._errorMessage()}
         <div className="center-inputs">
           <TextField ref="email" floatingLabelText="Email" />

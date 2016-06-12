@@ -1,23 +1,72 @@
 body {
-  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; }
-  body div#landing_page div.landing-title {
-    width: 18%;
-    margin: auto;
-    margin-top: 40%;
-    font-size: 2em; }
-  body div#landing_page div.credentials {
-    width: 70%;
-    margin: auto; }
-    body div#landing_page div.credentials input {
-      width: 100%; }
-  body div#landing_page div.errorMessage {
+  font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+  margin: 0px; }
+  body div#login_page div.center-header {
+    margin-top: 40%; }
+  body div#login_page div.errorMessage {
     width: 50%;
     margin: auto;
     color: red; }
-  body div#landing_page .sign-in-btn {
-    float: left; }
-  body div#landing_page .register-btn {
-    float: right; }
+  body div#login_page div.buttons-wrapper {
+    text-align: right; }
+  body div#register_page div.center-header {
+    margin-top: 20%; }
+  body div#register_page div.buttons-wrapper {
+    text-align: right; }
+  body div#register_page div.signed-up {
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    color: green; }
 
 .pull-down-10 {
   margin-top: 10px; }
+
+.pull-down-20 {
+  margin-top: 20px; }
+
+.pull-down-30 {
+  margin-top: 30px; }
+
+.pull-down-40 {
+  margin-top: 40px; }
+
+.pull-down-50 {
+  margin-top: 50px; }
+
+.center-header {
+  width: 30%;
+  margin: auto;
+  font-size: 2em;
+  text-align: center; }
+
+.center-inputs {
+  width: 70%;
+  margin: auto; }
+
+.errorMessage {
+  width: 70%;
+  margin: auto;
+  color: red;
+  text-align: center; }
+
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Material Icons"), local("MaterialIcons-Regular"), url(https://fonts.gstatic.com/s/materialicons/v17/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format("woff2"); }
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased; }

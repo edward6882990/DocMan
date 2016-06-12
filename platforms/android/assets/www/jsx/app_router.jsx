@@ -2,7 +2,7 @@ var Views = require('./views.jsx');
 var Loko  = require('./views/loko.jsx');
 
 var AppRouter = React.createClass({
-  childeContextTypes: {
+  childContextTypes: {
     history: React.PropTypes.object
   },
 
@@ -15,14 +15,15 @@ var AppRouter = React.createClass({
   },
 
   render: function(){
-    var IndexComponent = this.isSignedIn() ? Views.Map : Views.Login;
+    var IndexComponent = this.isSignedIn() ? Views.Home : Views.Login;
 
     return (
       <Router history={this.props.history}>
         <Route path="/" component={Loko}>
           <IndexRoute component={IndexComponent}/>
-          <Route path="map"     component={Views.Map}   />
-          <Route path="sign_in" component={Views.Login} />
+          <Route path="home"     component={Views.Home}  />
+          <Route path="sign_in" component={Views.Login}  />
+          <Route path="sign_up" component={Views.SignUp} />
         </Route>
       </Router>
     );
