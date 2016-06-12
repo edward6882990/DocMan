@@ -77428,21 +77428,24 @@ window.FlatButton = Mui.FlatButton;
 window.AppBar     = Mui.AppBar;
 window.LeftNav    = Mui.LeftNav;
 window.IconButton = Mui.IconButton;
+window.Dialog     = Mui.Dialog;
 
 window.ReactRouter = require('react-router');
 window.Router      = ReactRouter.Router;
 window.Route       = ReactRouter.Route;
 window.IndexRoute  = ReactRouter.IndexRoute;
 
-window.Auth = require('./jsx/auth.jsx');
-window.Vent = require('./jsx/vent.jsx');
+window.Auth   = require('./jsx/auth.jsx');
+window.DocHub = require('./jsx/dochub.jsx');
+window.Vent   = require('./jsx/vent.jsx');
 
 window.RequireAuthentication = require('./jsx/mixins/require_authentication.jsx');
 
-var Login   = require('./jsx/views/login.jsx');
-var Home    = require('./jsx/views/home.jsx');
-var SignUp  = require('./jsx/views/sign_up.jsx');
-var Views   = require('./jsx/views.jsx');
+var Login        = require('./jsx/views/login.jsx');
+var Home         = require('./jsx/views/home.jsx');
+var SignUp       = require('./jsx/views/sign_up.jsx');
+var AddDocDialog = require('./jsx/views/loko/add_doc_dialog.jsx');
+var Views        = require('./jsx/views.jsx');
 
 var Loko = require('./jsx/views/loko.jsx');
 
@@ -77450,7 +77453,17 @@ var AppRouter = require('./jsx/app_router.jsx');
 
 require('./jsx/index.jsx');
 
-},{"./jsx/app_router.jsx":400,"./jsx/auth.jsx":401,"./jsx/index.jsx":402,"./jsx/mixins/require_authentication.jsx":403,"./jsx/vent.jsx":404,"./jsx/views.jsx":405,"./jsx/views/home.jsx":406,"./jsx/views/login.jsx":407,"./jsx/views/loko.jsx":408,"./jsx/views/sign_up.jsx":409,"history":51,"jquery":70,"jquery.cookie":69,"lodash":74,"material-ui/lib":115,"react":395,"react-dom":231,"react-router":251,"react-tap-event-plugin":260}],400:[function(require,module,exports){
+window.HOST                        = 'http://d91f6b8b.ngrok.io';
+
+window.SIGN_IN_PATH                = '/users/sign_in';
+window.SIGN_OUT_PATH               = '/users/sign_out';
+window.SIGN_UP_PATH                = '/users';
+window.AUTH_BY_TOKEN_PATH          = '/users/get_by_token';
+window.GET_AUTHENTICITY_TOKEN_PATH = '/authenticity_token';
+window.CREATE_DOC_PATH             = '/docs';
+window.GET_DOCS_PATH               = '/docs';
+
+},{"./jsx/app_router.jsx":400,"./jsx/auth.jsx":401,"./jsx/dochub.jsx":402,"./jsx/index.jsx":403,"./jsx/mixins/require_authentication.jsx":404,"./jsx/vent.jsx":405,"./jsx/views.jsx":406,"./jsx/views/home.jsx":407,"./jsx/views/login.jsx":408,"./jsx/views/loko.jsx":409,"./jsx/views/loko/add_doc_dialog.jsx":410,"./jsx/views/sign_up.jsx":411,"history":51,"jquery":70,"jquery.cookie":69,"lodash":74,"material-ui/lib":115,"react":395,"react-dom":231,"react-router":251,"react-tap-event-plugin":260}],400:[function(require,module,exports){
 var Views = require('./views.jsx');
 var Loko  = require('./views/loko.jsx');
 
@@ -77485,14 +77498,8 @@ var AppRouter = React.createClass({displayName: "AppRouter",
 
 module.exports = AppRouter;
 
-},{"./views.jsx":405,"./views/loko.jsx":408}],401:[function(require,module,exports){
-var HOST                        = 'http://e5f47873.ngrok.io';
+},{"./views.jsx":406,"./views/loko.jsx":409}],401:[function(require,module,exports){
 
-var SIGN_IN_PATH                = '/users/sign_in';
-var SIGN_OUT_PATH               = '/users/sign_out';
-var SIGN_UP_PATH                = '/users';
-var AUTH_BY_TOKEN_PATH          = '/users/get_by_token';
-var GET_AUTHENTICITY_TOKEN_PATH = '/authenticity_token';
 
 var Auth = {
   getToken: function(callback){
@@ -77596,6 +77603,48 @@ var Auth = {
 module.exports = Auth;
 
 },{}],402:[function(require,module,exports){
+var DocHub = {
+  getDocs: function(options){
+    var done = options && options.done;
+    var fail = options && options.fail;
+
+    this._getDocsRequest()
+      .done(done)
+      .fail(fail);
+  },
+
+  createDoc: function(image_data, name, options){
+    var data = { image_data: image_data, name: name, user_id: '1' }; //TODO: resolve this hardcoded id after resolving sessions problem
+
+    var done   = options && options.done;
+    var fail   = options && options.fail;
+    var always = options && options.always;
+
+    this._createDocRequest(data)
+      .done(done)
+      .fail(fail)
+      .always(always);
+  },
+
+  _getDocsRequest: function(){
+    return $.ajax({
+      url    : HOST + GET_DOCS_PATH,
+      method : 'GET'
+    })
+  },
+
+  _createDocRequest: function(data){
+    return $.ajax({
+      url    : HOST + CREATE_DOC_PATH,
+      data   : data,
+      method : 'POST'
+    });
+  }
+};
+
+module.exports = DocHub;
+
+},{}],403:[function(require,module,exports){
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -77663,7 +77712,7 @@ window.app = {
 
 app.initialize();
 
-},{"./app_router.jsx":400}],403:[function(require,module,exports){
+},{"./app_router.jsx":400}],404:[function(require,module,exports){
 var RequireAuthentication = {
   contextTypes: {
     history: React.PropTypes.object
@@ -77681,14 +77730,14 @@ var RequireAuthentication = {
 
 module.exports = RequireAuthentication;
 
-},{}],404:[function(require,module,exports){
+},{}],405:[function(require,module,exports){
 var Marionette = require('backbone.marionette');
 
 var app = new Marionette.Application();
 
 module.exports = app.vent;
 
-},{"backbone.marionette":2}],405:[function(require,module,exports){
+},{"backbone.marionette":2}],406:[function(require,module,exports){
 var Views = {
   Login  : require('./views/login.jsx'),
   Home   : require('./views/home.jsx'),
@@ -77697,20 +77746,62 @@ var Views = {
 
 module.exports = Views;
 
-},{"./views/home.jsx":406,"./views/login.jsx":407,"./views/sign_up.jsx":409}],406:[function(require,module,exports){
+},{"./views/home.jsx":407,"./views/login.jsx":408,"./views/sign_up.jsx":411}],407:[function(require,module,exports){
 var Home = React.createClass({displayName: "Home",
   mixins: [RequireAuthentication],
 
+  componentDidMount: function(){
+    var _this = this;
+
+    var done = function(data){
+      _this.setState({ docs: _this.categorizeDocs(data) })
+    };
+
+    var fail = function(){
+      alert('failed to get docs!');
+    };
+
+    var options = { done: done, fail: fail };
+
+    DocHub.getDocs(options);
+  },
+
+  getInitialState: function() {
+    return { docs: {} };
+  },
+
+  categorizeDocs: function(docs){
+    var categorizedDocs = {};
+
+    _.each(docs, function(doc){
+      if (!categorizedDocs[doc.classification]) categorizedDocs[doc.classification] = []
+      categorizedDocs[doc.classification].push(doc)
+    });
+
+    return categorizedDocs;
+  },
+
+  _content: function(){
+    var EmptyView = (React.createElement("div", {className: "empty-view"}, "No Document."));
+
+    if (_.isEmpty(this.state.docs))
+      return EmptyView;
+    else
+      return (React.createElement("div", null, "Something"));
+  },
+
   render: function(){
     return (
-      React.createElement("div", null, "Home")
+      React.createElement("div", {id: "home_page"}, 
+        this._content()
+      )
     );
   }
 });
 
 module.exports = Home;
 
-},{}],407:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 var Login = React.createClass({displayName: "Login",
   contextTypes: {
     history: React.PropTypes.object
@@ -77769,7 +77860,9 @@ var Login = React.createClass({displayName: "Login",
 
 module.exports = Login;
 
-},{}],408:[function(require,module,exports){
+},{}],409:[function(require,module,exports){
+var AddDocDialog = require('./loko/add_doc_dialog.jsx');
+
 var Loko = React.createClass({displayName: "Loko",
   menuItems: [
     { routes: 'sign_out', text: 'Sign Out' }
@@ -77800,6 +77893,44 @@ var Loko = React.createClass({displayName: "Loko",
     this.refs.leftNav.toggle();
   },
 
+  _onRightIconButtonTouchTap: function(){
+    var _this = this;
+
+    var onSuccess = function(imageData){
+      _this.setState({ imageData: imageData });
+      _this = null;
+    };
+
+    onFailure = function(){
+    };
+
+    navigator.camera.getPicture(onSuccess, onFailure, { destinationType: Camera.DestinationType.DATA_URL });
+  },
+
+  _onAddDocDialogAdd: function(data){
+    var _this = this;
+    var done = function(){
+      _this.setState({ imageData: null });
+      _this = null;
+    };
+
+    var fail = function(){
+      alert("Failed creating Doc!");
+    };
+
+    var always = function(){
+
+    };
+
+    var options = { done: done, fail: fail, always: always };
+
+    DocHub.createDoc(this.state.imageData, data.name, options);
+  },
+
+  _onAddDocDialogCancel: function(){
+    this.setState({ imageData: null });
+  },
+
   layout: function(){
     if (!!this.state.isSignedIn)
       return (
@@ -77807,9 +77938,13 @@ var Loko = React.createClass({displayName: "Loko",
           React.createElement(AppBar, {
             onLeftIconButtonTouchTap: this._onLeftIconButtonTouchTap, 
             iconElementRight: 
-              React.createElement(IconButton, {iconClassName: "material-icons"}, "camera_enhance")
+              React.createElement(IconButton, {onTouchTap: this._onRightIconButtonTouchTap, iconClassName: "material-icons"}, "camera_enhance")
             }), 
-          React.createElement(LeftNav, {ref: "leftNav", menuItems: this.menuItems, docked: false})
+          React.createElement(LeftNav, {ref: "leftNav", menuItems: this.menuItems, docked: false}), 
+          React.createElement(AddDocDialog, {
+            imageData: this.state.imageData, 
+            onCancel: this._onAddDocDialogCancel, 
+            onAdd: this._onAddDocDialogAdd})
         )
       );
     else
@@ -77828,7 +77963,51 @@ var Loko = React.createClass({displayName: "Loko",
 
 module.exports = Loko;
 
-},{}],409:[function(require,module,exports){
+},{"./loko/add_doc_dialog.jsx":410}],410:[function(require,module,exports){
+var AddDocDialog = React.createClass({displayName: "AddDocDialog",
+  propTypes: {
+    imageData : React.PropTypes.string,
+    onCancel  : React.PropTypes.func.isRequired,
+    onAdd     : React.PropTypes.func.isRequired
+  },
+
+  componentWillReceiveProps: function(props){
+    this.setState({ imageData: props.imageData });
+  },
+
+  getInitialState: function(){
+    return { imageData: this.props.imageData };
+  },
+
+  _onCancel: function(){
+    this.props.onCancel();
+  },
+
+  _onAdd: function(){
+    this.props.onAdd({ name: this.refs.name.getValue() });
+  },
+
+  render: function(){
+    var modalActions = [
+      { text: 'Cancel', onTouchTap: this._onCancel },
+      { text: 'Add',    onTouchTap: this._onAdd }
+    ];
+
+    return (
+      React.createElement(Dialog, {
+          title: "Add Doc", 
+          actions: modalActions, 
+          open: !!this.state.imageData}, 
+        React.createElement("img", {className: "modal-image", src: "data:image/jpeg;base64," + this.state.imageData}), 
+        React.createElement(TextField, {ref: "name", floatingLabelText: "Name"})
+      )
+    );
+  }
+});
+
+module.exports = AddDocDialog;
+
+},{}],411:[function(require,module,exports){
 var SignUp = React.createClass({displayName: "SignUp",
   contextTypes: {
     history: React.PropTypes.object

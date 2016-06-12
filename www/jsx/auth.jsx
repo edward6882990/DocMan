@@ -1,10 +1,4 @@
-var HOST                        = 'http://e5f47873.ngrok.io';
 
-var SIGN_IN_PATH                = '/users/sign_in';
-var SIGN_OUT_PATH               = '/users/sign_out';
-var SIGN_UP_PATH                = '/users';
-var AUTH_BY_TOKEN_PATH          = '/users/get_by_token';
-var GET_AUTHENTICITY_TOKEN_PATH = '/authenticity_token';
 
 var Auth = {
   getToken: function(callback){

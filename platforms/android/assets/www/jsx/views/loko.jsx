@@ -1,3 +1,5 @@
+var AddDocDialog = require('./loko/add_doc_dialog.jsx');
+
 var Loko = React.createClass({
   menuItems: [
     { routes: 'sign_out', text: 'Sign Out' }
@@ -28,6 +30,44 @@ var Loko = React.createClass({
     this.refs.leftNav.toggle();
   },
 
+  _onRightIconButtonTouchTap: function(){
+    var _this = this;
+
+    var onSuccess = function(imageData){
+      _this.setState({ imageData: imageData });
+      _this = null;
+    };
+
+    onFailure = function(){
+    };
+
+    navigator.camera.getPicture(onSuccess, onFailure, { destinationType: Camera.DestinationType.DATA_URL });
+  },
+
+  _onAddDocDialogAdd: function(data){
+    var _this = this;
+    var done = function(){
+      _this.setState({ imageData: null });
+      _this = null;
+    };
+
+    var fail = function(){
+      alert("Failed creating Doc!");
+    };
+
+    var always = function(){
+
+    };
+
+    var options = { done: done, fail: fail, always: always };
+
+    DocHub.createDoc(this.state.imageData, data.name, options);
+  },
+
+  _onAddDocDialogCancel: function(){
+    this.setState({ imageData: null });
+  },
+
   layout: function(){
     if (!!this.state.isSignedIn)
       return (
@@ -35,9 +75,13 @@ var Loko = React.createClass({
           <AppBar
             onLeftIconButtonTouchTap={this._onLeftIconButtonTouchTap}
             iconElementRight={
-              <IconButton iconClassName="material-icons">camera_enhance</IconButton>
+              <IconButton onTouchTap={this._onRightIconButtonTouchTap} iconClassName="material-icons">camera_enhance</IconButton>
             }/>
           <LeftNav ref="leftNav" menuItems={this.menuItems} docked={false} />
+          <AddDocDialog
+            imageData={this.state.imageData}
+            onCancel={this._onAddDocDialogCancel}
+            onAdd={this._onAddDocDialogAdd} />
         </div>
       );
     else
